@@ -117,8 +117,8 @@ import funcao as fun
 
 ############## IMPLEMENTA MÉTODOS #################
 #implementa a bisseccao
-def erro_bisseccao(x):
-    return x
+def erro_bisseccao(a,b):
+    return (a+b)/2
 
 def bisseccao(a,b,precision):
     fa = fun.funcao(a)
@@ -129,8 +129,7 @@ def bisseccao(a,b,precision):
     fxizes = [fx]
     prec = 10**(-precision)
     iteracoes = 0
-    teste = 0.1
-    erro = erro_bisseccao(teste)
+    erro = erro_bisseccao(a,b)
     while erro > prec:
         iteracoes += 1
         if fx == 0:
@@ -146,40 +145,72 @@ def bisseccao(a,b,precision):
             fx = fun.funcao(x)
         xizes.append(x)
         fxizes.append(fx)
-        teste = teste/10
-        erro = erro_bisseccao(teste)
+        erro = erro_bisseccao(a,b)
 
     return xizes,fxizes,x,fx,erro,iteracoes
 
 #implementa a posicao falsa
+def erro_pos_falsa(a,b):
+    return 0
+
 def pos_falsa(a,b,precision):
-    return
+    x = (a+b)/2.
+    fx = fun.funcao(x)
+    xizes = [x]
+    fxizes = [fx]
+    prec = 10**(-precision)
+    iteracoes = 0
+    erro = erro_pos_falsa(a,b)
+    return xizes,fxizes,x,fx,erro,iteracoes
 
-#implementa o ponto fixo
+#implementa o ponto fixo #TODO
 def ponto_fixo(a,b,precision):
-    return
+    x = (a+b)/2.
+    fx = fun.funcao(x)
+    xizes = [x]
+    fxizes = [fx]
+    prec = 10**(-precision)
+    iteracoes = 0
+    erro = erro_bisseccao(a,b)
+    return xizes,fxizes,x,fx,erro,iteracoes
 
-#implementa newton-raphson
+#implementa newton-raphson #TODO
 def newton_raphson(a,b,precision):
-    return
+    x = (a+b)/2.
+    fx = fun.funcao(x)
+    xizes = [x]
+    fxizes = [fx]
+    prec = 10**(-precision)
+    iteracoes = 0
+    erro = erro_bisseccao(a,b)
+    return xizes,fxizes,x,fx,erro,iteracoes
 
-#implementa o metodo da secante
+#implementa o metodo da secante #TODO
 def secante(a,b,precision):
-    return
+    x = (a+b)/2.
+    fx = fun.funcao(x)
+    xizes = [x]
+    fxizes = [fx]
+    prec = 10**(-precision)
+    iteracoes = 0
+    erro = erro_bisseccao(a,b)
+    return xizes,fxizes,x,fx,erro,iteracoes
 
 ###########################################
 
 
 def saida(f,out1,out2,out3,out4,out5,out6):
     f.write('<x>=')
-    for i in out1:
-        f.write(str(i))
-        f.write(',')
+    for i in range(len(out1)):
+        f.write(str(out1[i]))
+        if i < len(out1)-1:
+            f.write(',')
     f.write('''
 <fx>=''')
-    for i in out2:
-        f.write(str(i))
-        f.write(',')
+    for i in range(len(out2)):
+        f.write(str(out2[i]))
+        if i < len(out2)-1:
+            f.write(',')
     f.write('''
 x=''')
     f.write(str(aux3))
@@ -195,15 +226,25 @@ iter=''')
 
     return
 
-aux1,aux2,aux3,aux4,aux5,aux6 = (bisseccao(a0,b0,precisao))
-
 f = open("output.txt","w+")
+
+aux1,aux2,aux3,aux4,aux5,aux6 = (bisseccao(a0,b0,precisao))
 f.write('''Metodo da Bisseccao:
 ''')
 saida(f,aux1,aux2,aux3,aux4,aux5,aux6)
 f.write('''
 
 ''')
+
+aux1,aux2,aux3,aux4,aux5,aux6 = (pos_falsa(a0,b0,precisao))
+f.write('''Metodo da Posicao Falsa:
+''')
+saida(f,aux1,aux2,aux3,aux4,aux5,aux6)
+f.write('''
+
+''')
+
+
 
 
 f.close()
