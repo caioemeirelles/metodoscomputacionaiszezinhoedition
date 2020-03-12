@@ -4,6 +4,9 @@
 #   201611310015            #
 #############################
 
+
+########## METODOS PRE PROCESSAMENTO E LIDAR COM ENTRADA #######################
+
 #escreve a funcao e sua derivada em um arquivo a se importar posteriormente
 def write_method_func(this_function,this_derivada):
     f = open("funcao.py","w+")
@@ -102,7 +105,9 @@ def interpret_interval(interval):
     b = float(aux2[1])
     return a,b
 
-############ PRE PROCESSAMENTO #####################
+################ FIM METODOS PRE PROCESSAMENTO E LIDAR COM ENTRADA ###############
+
+############ EXECUTA PRE PROCESSAMENTO #####################
 input = open('input.txt','r')
 
 interpret_function(input.readline())
@@ -112,10 +117,10 @@ a0,b0 = interpret_interval(input.readline())
 input.close()
 
 import funcao as fun
-###################################################
+############ FIM EXECUTA PRE PROCESSAMENTO ################
 
 
-############## IMPLEMENTA MÉTODOS #################
+############## IMPLEMENTA MÉTODOS NUMERICOS #################
 #implementa a bisseccao
 def erro_bisseccao(a,b):
     return (a+b)/2
@@ -216,9 +221,10 @@ def secante(a,b,precision):
     erro = erro_bisseccao(a,b)
     return xizes,fxizes,x,fx,erro,iteracoes
 
-###########################################
+########## FIM IMPLEMENTA METODOS NUMERICOS #################################
 
 
+############## IMPLEMENTA SAIDA FORMATADA #########################
 def saida(f,out1,out2,out3,out4,out5,out6):
     f.write('<x>=')
     for i in range(len(out1)):
@@ -246,6 +252,8 @@ iter=''')
 
     return
 
+########## FIM IMPLEMENTA SAÍDA FORMATADA ###################
+
 f = open("output.txt","w+")
 
 aux1,aux2,aux3,aux4,aux5,aux6 = (bisseccao(a0,b0,precisao))
@@ -256,7 +264,7 @@ f.write('''
 
 ''')
 
-#FAZENDO
+
 aux1,aux2,aux3,aux4,aux5,aux6 = (pos_falsa(a0,b0,precisao))
 f.write('''Metodo da Posicao Falsa:
 ''')
@@ -264,6 +272,16 @@ saida(f,aux1,aux2,aux3,aux4,aux5,aux6)
 f.write('''
 
 ''')
+
+#TODO
+aux1,aux2,aux3,aux4,aux5,aux6 = (ponto_fixo(a0,b0,precisao))
+f.write('''Metodo da Ponto Fixo:
+''')
+saida(f,aux1,aux2,aux3,aux4,aux5,aux6)
+f.write('''
+
+''')
+
 
 
 f.close()
