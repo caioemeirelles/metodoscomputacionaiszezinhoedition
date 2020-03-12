@@ -219,19 +219,39 @@ def newton_raphson(x,precision):
         fx = fun.funcao(x)
         flx = fun.derivada(x)
         x1 = x - fx/flx
+        xizes.append(x)
+        fxizes.append(fx)
         erro = erro_newton(x,x1,fx)
 
     return xizes,fxizes,x,fx,erro,iteracoes
 
 #implementa o metodo da secante #TODO
+def erro_secante(x,x1,fx):
+    return min( abs(x1-x), abs(fx) )
+
 def secante(a,b,precision):
-    x = (a+b)/2.
+    x = a
+    x1 = b
     fx = fun.funcao(x)
-    xizes = [x]
-    fxizes = [fx]
-    prec = 10**(-precision)
+    fx1 = fun.funcao(x1)
+    x2 = ( (x*fx1 - x1*fx)/(fx1 - fx) )
+    xizes = [x,x1]
+    fxizes = [fx,fx1]
     iteracoes = 0
-    erro = erro_bisseccao(a,b,fx)
+    prec = 10**(-precision)
+    erro = erro_secante(x,x1,fx)
+
+    while erro > prec and iteracoes < 1000:
+        iteracoes += 1
+        x = x1
+        x1 = x2
+        fx = fun.funcao(x)
+        fx1 = fun.funcao(x1)
+        x2 = ( (x*fx1 - x1*fx)/(fx1 - fx) )
+        xizes.append(x1)
+        fxizes.append(fx1)
+        erro = erro_secante(x,x1,fx1)
+
     return xizes,fxizes,x,fx,erro,iteracoes
 
 ########## FIM IMPLEMENTA METODOS NUMERICOS #################################
@@ -296,7 +316,7 @@ f.write('''
 
 ''')
 
-#TODO executa newton-raphson
+#executa newton-raphson
 aux1,aux2,aux3,aux4,aux5,aux6 = (newton_raphson((a0+b0)/2,precisao))
 f.write('''Metodo de Newton-Raphson:
 ''')
@@ -310,8 +330,6 @@ aux1,aux2,aux3,aux4,aux5,aux6 = (secante(a0,b0,precisao))
 f.write('''Metodo da Secante:
 ''')
 saida(f,aux1,aux2,aux3,aux4,aux5,aux6)
-f.write('''
 
-''')
 
 f.close()
