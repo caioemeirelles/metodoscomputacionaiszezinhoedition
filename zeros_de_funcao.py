@@ -122,8 +122,8 @@ import funcao as fun
 
 ############## IMPLEMENTA MÉTODOS NUMERICOS #################
 #implementa a bisseccao
-def erro_bisseccao(a,b):
-    return (a+b)/2
+def erro_bisseccao(a,b,fx):
+    return min(abs(a+b)/2,fx)
 
 def bisseccao(a,b,precision):
     fa = fun.funcao(a)
@@ -134,7 +134,7 @@ def bisseccao(a,b,precision):
     fxizes = [fx]
     prec = 10**(-precision)
     iteracoes = 0
-    erro = erro_bisseccao(a,b)
+    erro = erro_bisseccao(a,b,fx)
     while erro > prec or iteracoes > 1000:
         iteracoes += 1
         if fx == 0:
@@ -150,13 +150,13 @@ def bisseccao(a,b,precision):
             fx = fun.funcao(x)
         xizes.append(x)
         fxizes.append(fx)
-        erro = erro_bisseccao(a,b)
+        erro = erro_bisseccao(a,b,fx)
 
     return xizes,fxizes,x,fx,erro,iteracoes
 
 #implementa a posicao falsa
-def erro_pos_falsa(a,b):
-    return abs(a-b)
+def erro_pos_falsa(a,b,fx):
+    return min(abs(a-b),fx)
 
 def pos_falsa(a,b,precision):
     fa = fun.funcao(a)
@@ -167,7 +167,7 @@ def pos_falsa(a,b,precision):
     fxizes = [fx]
     prec = 10**(-precision)
     iteracoes = 0
-    erro = erro_pos_falsa(a,b)
+    erro = erro_pos_falsa(a,b,fx)
 
     while erro > prec and iteracoes < 1000:
         iteracoes += 1
@@ -184,7 +184,7 @@ def pos_falsa(a,b,precision):
             fx = fun.funcao(x)
         xizes.append(x)
         fxizes.append(fx)
-        erro = erro_pos_falsa(a,b)
+        erro = erro_pos_falsa(a,b,fx)
 
     return xizes,fxizes,x,fx,erro,iteracoes
 
@@ -196,18 +196,31 @@ def ponto_fixo(a,b,precision):
     fxizes = [fx]
     prec = 10**(-precision)
     iteracoes = 0
-    erro = erro_bisseccao(a,b)
+    erro = erro_bisseccao(a,b,fx)
     return xizes,fxizes,x,fx,erro,iteracoes
 
 #implementa newton-raphson #TODO
-def newton_raphson(a,b,precision):
-    x = (a+b)/2.
+def erro_newton(x,x1,fx):
+    return min(abs((x1-x)/x1),fx)
+
+def newton_raphson(x,precision):
     fx = fun.funcao(x)
+    flx = fun.derivada(x)
+    x1 = x - fx/flx
     xizes = [x]
     fxizes = [fx]
     prec = 10**(-precision)
     iteracoes = 0
-    erro = erro_bisseccao(a,b)
+    erro = erro_newton(x,x1,fx)
+
+    while erro > prec and iteracoes < 1000:
+        iteracoes += 1
+        x = x1
+        fx = fun.funcao(x)
+        flx = fun.derivada(x)
+        x1 = x - fx/flx
+        erro = erro_newton(x,x1,fx)
+
     return xizes,fxizes,x,fx,erro,iteracoes
 
 #implementa o metodo da secante #TODO
@@ -218,7 +231,7 @@ def secante(a,b,precision):
     fxizes = [fx]
     prec = 10**(-precision)
     iteracoes = 0
-    erro = erro_bisseccao(a,b)
+    erro = erro_bisseccao(a,b,fx)
     return xizes,fxizes,x,fx,erro,iteracoes
 
 ########## FIM IMPLEMENTA METODOS NUMERICOS #################################
@@ -284,7 +297,7 @@ f.write('''
 ''')
 
 #TODO executa newton-raphson
-aux1,aux2,aux3,aux4,aux5,aux6 = (newton_raphson(a0,b0,precisao))
+aux1,aux2,aux3,aux4,aux5,aux6 = (newton_raphson((a0+b0)/2,precisao))
 f.write('''Metodo de Newton-Raphson:
 ''')
 saida(f,aux1,aux2,aux3,aux4,aux5,aux6)
