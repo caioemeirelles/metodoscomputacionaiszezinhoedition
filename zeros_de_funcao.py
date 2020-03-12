@@ -4,6 +4,7 @@
 #   201611310015            #
 #############################
 
+#escreve a funcao e sua derivada em um arquivo a se importar posteriormente
 def write_method_func(this_function,this_derivada):
     f = open("funcao.py","w+")
     f.write('''
@@ -19,6 +20,7 @@ def derivada(x):
     f.write('\n')
     return
 
+#le a funcao, transforma em codigo python e a deriva
 def export_func(operands,operators):
     aux = []
     for i in operands:
@@ -41,6 +43,7 @@ def export_func(operands,operators):
     write_method_func(interpreted_function,"teste")
     return
 
+#separa a entrada em tokens
 def write_func(func):
     symbols = []
     for i in func:
@@ -55,16 +58,19 @@ def write_func(func):
     export_func(aux,symbols)
     return
 
+#tira o "f(x)=" da entrada e deixa só a funcao a se interpretar
 def interpret_function(f_de_x):
     aux = f_de_x.split('=')
     func = aux[1]
     write_func(func[:-1])
     return
 
+#guarda a precisao
 def interpret_precision(precision):
     aux = precision.split('=')
     return int(aux[1][:-1])
 
+#guarda o intervalo inicial
 def interpret_interval(interval):
     aux = interval.split('=')
     aux2 = aux[1].split(',')
@@ -73,18 +79,23 @@ def interpret_interval(interval):
     b = float(aux2[1])
     return a,b
 
+#implementa a bisseccao
 def bisseccao(a,b,precision):
     return
 
+#implementa a posicao falsa
 def pos_falsa(a,b,precision):
     return
 
+#implementa o ponto fixo
 def ponto_fixo(a,b,precision):
     return
 
+#implementa newton-raphson
 def newton_raphson(a,b,precision):
     return
 
+#implementa o metodo da secante
 def secante(a,b,precision):
     return
 
