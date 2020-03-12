@@ -16,38 +16,55 @@ def funcao(x):
     f.write('''
 def derivada(x):
     return ''')
-    f.write(this_derivada)
+    for i in this_derivada:
+        f.write(i)
     f.write('\n')
     return
 
 #le a funcao, transforma em codigo python e a deriva
 def export_func(operands,operators):
     aux = []
+    aux_deriv = []
     coef = []
+    exp = []
     for i in operands:
         if 'x' in i:
             if '^' in i:
                 coef.append(i.split("x^")[0])
-                print(coef[len(coef)-1])
+                exp.append(i.split("x^")[1])
+
                 if coef[len(coef)-1] == "":
-                    a = ("x**"+i.split("x^")[1])
+                    a = ("x**"+exp[len(coef)-1])
+                    b = (exp[len(coef)-1]+"*x**("+exp[len(coef)-1]+"-1)")
                 else:
-                    a = (coef[len(coef)-1]+"*x**"+i.split("x^")[1])
-                print(a)
+                    a = (coef[len(coef)-1]+"*x**"+exp[len(coef)-1])
+                    b = (exp[len(coef)-1]+"*"+coef[len(coef)-1]+"*x**("+exp[len(coef)-1]+"-1)")
                 aux.append(a)
+                aux_deriv.append(b)
+
             else:
                 aux2 = i.split('x')
                 b = (aux2[0]+"*x")
                 aux.append(b)
+                aux_deriv.append(aux2[0])
         else:
             aux.append(i)
+            aux_deriv.append("")
 
+        print(aux_deriv)
     interpreted_function = []
+    interpreted_deriv = []
     for i in range(len(operators)):
         interpreted_function.append(aux[i])
         interpreted_function.append(operators[i])
+
+        interpreted_deriv.append(aux_deriv[i])
+        if not aux_deriv[i+1] == "":
+            interpreted_deriv.append(operators[i])
+
     interpreted_function.append(aux[len(aux)-1])
-    write_method_func(interpreted_function,"teste")
+    interpreted_deriv.append(aux_deriv[len(aux_deriv)-1])
+    write_method_func(interpreted_function,interpreted_deriv)
     return
 
 #separa a entrada em tokens
