@@ -23,10 +23,17 @@ def derivada(x):
 #le a funcao, transforma em codigo python e a deriva
 def export_func(operands,operators):
     aux = []
+    coef = []
     for i in operands:
         if 'x' in i:
             if '^' in i:
-                a = ("x**"+i[-1:])
+                coef.append(i.split("x^")[0])
+                print(coef[len(coef)-1])
+                if coef[len(coef)-1] == "":
+                    a = ("x**"+i[-1:])
+                else:
+                    a = (coef[len(coef)-1]+"*x**"+i[-1:])
+                print(a)
                 aux.append(a)
             else:
                 aux2 = i.split('x')
@@ -109,6 +116,6 @@ a0,b0 = interpret_interval(input.readline())
 
 input.close()
 
-print(precision)
-print(a,b)
+print(precisao)
+print(a0,b0)
 
