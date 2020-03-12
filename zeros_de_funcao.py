@@ -30,9 +30,9 @@ def export_func(operands,operators):
                 coef.append(i.split("x^")[0])
                 print(coef[len(coef)-1])
                 if coef[len(coef)-1] == "":
-                    a = ("x**"+i[-1:])
+                    a = ("x**"+i.split("x^")[1])
                 else:
-                    a = (coef[len(coef)-1]+"*x**"+i[-1:])
+                    a = (coef[len(coef)-1]+"*x**"+i.split("x^")[1])
                 print(a)
                 aux.append(a)
             else:
