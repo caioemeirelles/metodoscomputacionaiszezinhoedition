@@ -130,7 +130,7 @@ def bisseccao(a,b,precision):
     prec = 10**(-precision)
     iteracoes = 0
     erro = erro_bisseccao(a,b)
-    while erro > prec:
+    while erro > prec or iteracoes > 1000:
         iteracoes += 1
         if fx == 0:
             erro = 0
@@ -151,16 +151,36 @@ def bisseccao(a,b,precision):
 
 #implementa a posicao falsa
 def erro_pos_falsa(a,b):
-    return 0
+    return abs(a-b)
 
 def pos_falsa(a,b,precision):
-    x = (a+b)/2.
+    fa = fun.funcao(a)
+    fb = fun.funcao(b)
+    x = (a*fb - b*fa)/(fb - fa)
     fx = fun.funcao(x)
     xizes = [x]
     fxizes = [fx]
     prec = 10**(-precision)
     iteracoes = 0
     erro = erro_pos_falsa(a,b)
+
+    while erro > prec and iteracoes < 1000:
+        iteracoes += 1
+        if fx == 0:
+            erro = 0
+            return xizes,fxizes,x,fx,erro,iteracoes
+        elif fx*fa < 0:
+            b = x
+            x = (a*fb - b*fa)/(fb - fa)
+            fx = fun.funcao(x)
+        else:
+            a = x
+            x = (a*fb - b*fa)/(fb - fa)
+            fx = fun.funcao(x)
+        xizes.append(x)
+        fxizes.append(fx)
+        erro = erro_pos_falsa(a,b)
+
     return xizes,fxizes,x,fx,erro,iteracoes
 
 #implementa o ponto fixo #TODO
@@ -236,6 +256,7 @@ f.write('''
 
 ''')
 
+#FAZENDO
 aux1,aux2,aux3,aux4,aux5,aux6 = (pos_falsa(a0,b0,precisao))
 f.write('''Metodo da Posicao Falsa:
 ''')
@@ -243,8 +264,6 @@ saida(f,aux1,aux2,aux3,aux4,aux5,aux6)
 f.write('''
 
 ''')
-
-
 
 
 f.close()
