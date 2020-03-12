@@ -123,7 +123,7 @@ import funcao as fun
 ############## IMPLEMENTA MÉTODOS NUMERICOS #################
 #implementa a bisseccao
 def erro_bisseccao(a,b,fx):
-    return min(abs(a+b)/2,fx)
+    return min(abs(a+b)/2,abs(fx))
 
 def bisseccao(a,b,precision):
     fa = fun.funcao(a)
@@ -156,7 +156,7 @@ def bisseccao(a,b,precision):
 
 #implementa a posicao falsa
 def erro_pos_falsa(a,b,fx):
-    return min(abs(a-b),fx)
+    return min(abs(a-b),abs(fx))
 
 def pos_falsa(a,b,precision):
     fa = fun.funcao(a)
@@ -201,7 +201,7 @@ def ponto_fixo(a,b,precision):
 
 #implementa newton-raphson #TODO
 def erro_newton(x,x1,fx):
-    return min(abs((x1-x)/x1),fx)
+    return min(abs((x1-x)/x1),abs(fx))
 
 def newton_raphson(x,precision):
     fx = fun.funcao(x)
