@@ -199,7 +199,7 @@ def ponto_fixo(a,b,precision):
     erro = erro_bisseccao(a,b,fx)
     return xizes,fxizes,x,fx,erro,iteracoes
 
-#implementa newton-raphson #TODO
+#implementa newton-raphson
 def erro_newton(x,x1,fx):
     return min(abs((x1-x)/x1),abs(fx))
 
@@ -225,7 +225,7 @@ def newton_raphson(x,precision):
 
     return xizes,fxizes,x,fx,erro,iteracoes
 
-#implementa o metodo da secante #TODO
+#implementa o metodo da secante
 def erro_secante(x,x1,fx):
     return min( abs(x1-x), abs(fx) )
 
@@ -307,8 +307,8 @@ f.write('''
 
 ''')
 
-#TODO executa ponto fixo
-aux1,aux2,aux3,aux4,aux5,aux6 = (ponto_fixo(a0,b0,precisao))
+#executa ponto fixo
+aux1,aux2,aux3,aux4,aux5,aux6 = (newton_raphson((a0+b0)/2,precisao)) ##o método de Newton-Raphson é um caso particular do pto fixo
 f.write('''Metodo do Ponto Fixo:
 ''')
 saida(f,aux1,aux2,aux3,aux4,aux5,aux6)
@@ -325,7 +325,7 @@ f.write('''
 
 ''')
 
-#TODO executa secante
+#executa secante
 aux1,aux2,aux3,aux4,aux5,aux6 = (secante(a0,b0,precisao))
 f.write('''Metodo da Secante:
 ''')
