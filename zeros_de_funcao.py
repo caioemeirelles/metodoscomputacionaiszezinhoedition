@@ -111,7 +111,7 @@ a0,b0 = interpret_interval(input.readline())
 
 input.close()
 
-import funcao as f
+import funcao as fun
 ###################################################
 
 
@@ -121,10 +121,10 @@ def erro_bisseccao(x):
     return x
 
 def bisseccao(a,b,precision):
-    fa = f.funcao(a)
-    fb = f.funcao(b)
+    fa = fun.funcao(a)
+    fb = fun.funcao(b)
     x = (a+b)/2.
-    fx = f.funcao(x)
+    fx = fun.funcao(x)
     xizes = [x]
     fxizes = [fx]
     prec = 10**(-precision)
@@ -139,11 +139,11 @@ def bisseccao(a,b,precision):
         elif fx*fa < 0:
             b = x
             x = (a+b)/2
-            fx = f.funcao(x)
+            fx = fun.funcao(x)
         else:
             a = x
             x = (a+b)/2
-            fx = f.funcao(x)
+            fx = fun.funcao(x)
         xizes.append(x)
         fxizes.append(fx)
         teste = teste/10
@@ -169,4 +169,41 @@ def secante(a,b,precision):
 
 ###########################################
 
-print(bisseccao(a0,b0,precisao))
+
+def saida(f,out1,out2,out3,out4,out5,out6):
+    f.write('<x>=')
+    for i in out1:
+        f.write(str(i))
+        f.write(',')
+    f.write('''
+<fx>=''')
+    for i in out2:
+        f.write(str(i))
+        f.write(',')
+    f.write('''
+x=''')
+    f.write(str(aux3))
+    f.write('''
+f(x)=''')
+    f.write(str(aux4))
+    f.write('''
+errx=''')
+    f.write(str(aux5))
+    f.write('''
+iter=''')
+    f.write(str(aux6))
+
+    return
+
+aux1,aux2,aux3,aux4,aux5,aux6 = (bisseccao(a0,b0,precisao))
+
+f = open("output.txt","w+")
+f.write('''Metodo da Bisseccao:
+''')
+saida(f,aux1,aux2,aux3,aux4,aux5,aux6)
+f.write('''
+
+''')
+
+
+f.close()
