@@ -256,6 +256,7 @@ iter=''')
 
 f = open("output.txt","w+")
 
+#executa bisseccao
 aux1,aux2,aux3,aux4,aux5,aux6 = (bisseccao(a0,b0,precisao))
 f.write('''Metodo da Bisseccao:
 ''')
@@ -264,7 +265,7 @@ f.write('''
 
 ''')
 
-
+#executa posicao falsa
 aux1,aux2,aux3,aux4,aux5,aux6 = (pos_falsa(a0,b0,precisao))
 f.write('''Metodo da Posicao Falsa:
 ''')
@@ -273,15 +274,31 @@ f.write('''
 
 ''')
 
-#TODO
+#TODO executa ponto fixo
 aux1,aux2,aux3,aux4,aux5,aux6 = (ponto_fixo(a0,b0,precisao))
-f.write('''Metodo da Ponto Fixo:
+f.write('''Metodo do Ponto Fixo:
 ''')
 saida(f,aux1,aux2,aux3,aux4,aux5,aux6)
 f.write('''
 
 ''')
 
+#TODO executa newton-raphson
+aux1,aux2,aux3,aux4,aux5,aux6 = (newton_raphson(a0,b0,precisao))
+f.write('''Metodo de Newton-Raphson:
+''')
+saida(f,aux1,aux2,aux3,aux4,aux5,aux6)
+f.write('''
 
+''')
+
+#TODO executa secante
+aux1,aux2,aux3,aux4,aux5,aux6 = (secante(a0,b0,precisao))
+f.write('''Metodo da Secante:
+''')
+saida(f,aux1,aux2,aux3,aux4,aux5,aux6)
+f.write('''
+
+''')
 
 f.close()
