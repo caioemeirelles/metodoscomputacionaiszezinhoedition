@@ -51,7 +51,6 @@ def export_func(operands,operators):
             aux.append(i)
             aux_deriv.append("")
 
-        print(aux_deriv)
     interpreted_function = []
     interpreted_deriv = []
     for i in range(len(operators)):
@@ -103,9 +102,54 @@ def interpret_interval(interval):
     b = float(aux2[1])
     return a,b
 
+############ PRE PROCESSAMENTO #####################
+input = open('input.txt','r')
+
+interpret_function(input.readline())
+precisao = interpret_precision(input.readline())
+a0,b0 = interpret_interval(input.readline())
+
+input.close()
+
+import funcao as f
+###################################################
+
+
+############## IMPLEMENTA MÉTODOS #################
 #implementa a bisseccao
+def erro_bisseccao(x):
+    return x
+
 def bisseccao(a,b,precision):
-    return
+    fa = f.funcao(a)
+    fb = f.funcao(b)
+    x = (a+b)/2.
+    fx = f.funcao(x)
+    xizes = [x]
+    fxizes = [fx]
+    prec = 10**(-precision)
+    iteracoes = 0
+    teste = 0.1
+    erro = erro_bisseccao(teste)
+    while erro > prec:
+        iteracoes += 1
+        if fx == 0:
+            erro = 0
+            return xizes,fxizes,x,fx,erro,iteracoes
+        elif fx*fa < 0:
+            b = x
+            x = (a+b)/2
+            fx = f.funcao(x)
+        else:
+            a = x
+            x = (a+b)/2
+            fx = f.funcao(x)
+        xizes.append(x)
+        fxizes.append(fx)
+        teste = teste/10
+        erro = erro_bisseccao(teste)
+
+    return xizes,fxizes,x,fx,erro,iteracoes
 
 #implementa a posicao falsa
 def pos_falsa(a,b,precision):
@@ -123,16 +167,6 @@ def newton_raphson(a,b,precision):
 def secante(a,b,precision):
     return
 
+###########################################
 
-
-input = open('input.txt','r')
-
-interpret_function(input.readline())
-precisao = interpret_precision(input.readline())
-a0,b0 = interpret_interval(input.readline())
-
-input.close()
-
-print(precisao)
-print(a0,b0)
-
+print(bisseccao(a0,b0,precisao))
